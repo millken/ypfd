@@ -1,0 +1,31 @@
+{
+    "name": "millken/ypfd",
+    "description": "ypfd",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Ypfd\\": "src"
+        }
+    },
+    "require": {
+        "millken/ypf": "^3.0",
+        "monolog/monolog": "^2.0",
+        "symfony/yaml": "^5.0",
+        "hassankhan/config": "^2.1",
+        "wikimedia/composer-merge-plugin": "^1.4"
+    },
+    "extra": {
+        "merge-plugin": {
+            "include": [
+                "module/*/composer.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": true,
+            "merge-extra": false,
+            "merge-extra-deep": false,
+            "merge-scripts": false
+        }
+    }
+}

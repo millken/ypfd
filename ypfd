@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+set_time_limit(0);
+define('YPFD_ROOT', __DIR__);
+require_once YPFD_ROOT . '/core/Ypfd.php';
+$app = new Ypfd\Core\App\Application();
+$app->registerCommand('command', YPFD_ROOT . '/core');

@@ -1,0 +1,1 @@
+- {pattern: /foo, controller: Ypfd\foo\Controller\Index::list_foo, method: GET|POST}

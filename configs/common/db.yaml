@@ -1,0 +1,9 @@
+db:
+  driver: pgsql
+  database: 9haodian
+  host: 127.0.0.1
+  port: 5435
+  username: postgres
+  password: admin
+  charset: utf8
+  timeout: 3

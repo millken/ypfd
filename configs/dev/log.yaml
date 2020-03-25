@@ -1,0 +1,3 @@
+log:
+  id: dnsoa
+  path: error.log

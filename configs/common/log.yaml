@@ -1,0 +1,3 @@
+log:
+  id: 9haodian
+  path: php://stdout

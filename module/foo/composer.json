@@ -1,0 +1,17 @@
+{
+    "name": "millken/foo",
+    "authors": [
+        {
+            "name": "millken",
+            "email": "millken@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ypfd\\foo\\": "src"
+        }
+    },
+    "require": {
+        "millken/ypf": "^3.0"
+    }
+}
