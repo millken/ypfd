@@ -1,0 +1,2 @@
+- {pattern: /bar, controller: Ypfd\admin\Controller\Index::list_bar, method: GET|POST}
+- {pattern: /admin/system/menu/index, controller: Ypfd\admin\Controller\Menu::index, method: GET|POST}

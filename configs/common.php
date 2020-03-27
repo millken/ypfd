@@ -37,6 +37,18 @@ $services['db'] = function () use ($config) {
     return $db;
 };
 
+$services['view'] = function () {
+    $smarty = new Smarty();
+    $smarty->setTemplateDir(__ROOT__ . '/module');
+    $smarty->setCacheDir(__ROOT__ . '/runtime/templates_cache');
+    $smarty->setCompileDir(__ROOT__ . '/runtime/templates_compile');
+    $smarty->left_delimiter = '<!--{';
+    $smarty->right_delimiter = '}-->';
+    $view = new \App\View\View($smarty);
+
+    return $view;
+};
+
 $services['request'] = new Ypf\Http\Request;
 $services['response'] = new Ypf\Http\Response(new GuzzleHttp\Psr7\Response);
 
@@ -70,10 +82,6 @@ foreach ($it as $fi) {
     }
 
 }
-
-$router->get('/', function ($request) {
-    return 'hello world';
-});
 
 $services['middleware'] = [
     // new Tuupola\Middleware\JwtAuthentication([

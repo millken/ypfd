@@ -1,0 +1,4 @@
+name: test
+type: module
+description: authorise users via jwt.
+core: 1.x

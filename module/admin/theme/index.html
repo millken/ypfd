@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{block name="title"}{$siteInfo.title}{/block}</title>
+    <link rel="stylesheet" href="https://unpkg.com/view-design/dist/styles/iview.css">
+    <style type="text/css">
+        .wrap-layout {
+            border: 0 solid #d7dde4;
+            background: #f5f7f9;
+            position: relative;
+            border-radius: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%
+        }
+        
+        .wrap-layout .main-layout {
+            position: relative;
+            height: calc(100% - 60px)
+        }
+        
+        .wrap-layout .menu-icon {
+            color: hsla(0, 0%, 100%, .9);
+            -webkit-transition: all .3s;
+            transition: all .3s
+        }
+        
+        .wrap-layout .rotate-icon {
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg)
+        }
+        
+        .wrap-layout .layout-header-bar {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            background: #fff;
+            padding-left: 0;
+            padding-right: 10px;
+            border-bottom: 1px solid #dadfe6
+        }
+        
+        .wrap-layout .layout-header-bar .left {
+            display: none;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: left;
+            -ms-flex-pack: left;
+            justify-content: left
+        }
+        
+        .wrap-layout .layout-header-bar .left .menu-icon.light {
+            color: #515a6e!important
+        }
+        
+        .wrap-layout .layout-header-bar .left .logo-layout,
+        .wrap-layout .layout-header-bar .left .logo-layout .logo-box {
+            -webkit-box-pack: left;
+            -ms-flex-pack: left;
+            justify-content: left
+        }
+        
+        .wrap-layout .layout-header-bar .right {
+            padding-left: 10px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between
+        }
+        
+        .wrap-layout .layout-header-bar .right .user-login .text-default {
+            color: hsla(0, 0%, 100%, .9)
+        }
+        
+        .wrap-layout .layout-header-bar .right .user-login .text-default.light {
+            color: #515a6e!important
+        }
+        
+        .wrap-layout .left-tab {
+            color: #444;
+            -webkit-transition: left .2s;
+            transition: left .2s;
+            background: #333;
+            border-right: 1px solid #eee
+        }
+        
+        .wrap-layout .left-tab .tab-logo {
+            height: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            border-bottom: 1px solid hsla(0, 0%, 100%, .05)
+        }
+        
+        .wrap-layout .left-tab .tab-logo .ivu-avatar {
+            background: #eee;
+            padding: 0;
+            width: 36px;
+            height: 36px
+        }
+        
+        .wrap-layout .left-tab a {
+            color: #444!important
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            -webkit-transition: all 0 ease 0;
+            transition: all 0 ease 0
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-list {
+            padding-top: 10px
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-item {
+            cursor: pointer;
+            height: 45px
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-item,
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-item a {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-item a {
+            width: 100%
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-item a .left-icon {
+            font-size: 14px
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-item a .title {
+            padding-left: 2px
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .tab-item.active {
+            background: #e3e8f0
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .bottom .tab-item {
+            height: 33px
+        }
+        
+        .wrap-layout .left-tab .ivu-layout-sider-children .bottom .tab-item:hover {
+            color: #333!important;
+            background: hsla(0, 0%, 100%, .1)
+        }
+        
+        .wrap-layout .logo-layout {
+            height: 59px;
+            line-height: 59px;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center
+        }
+        
+        .wrap-layout .logo-layout .logo-box {
+            height: 100%;
+            color: #444;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 0
+        }
+        
+        .wrap-layout .logo-layout .logo-box .ivu-icon {
+            color: #444
+        }
+        
+        .wrap-layout .logo-layout .logo-box .logo,
+        .wrap-layout .logo-layout .logo-box .logo .logo-img {
+            height: 40px
+        }
+        
+        .wrap-layout .logo-layout .logo-box a {
+            color: #444
+        }
+        
+        .wrap-layout .logo-layout .logo-box .title {
+            letter-spacing: 1px;
+            font-weight: 700;
+            font-size: 22px;
+            color: hsla(0, 0%, 100%, .9)
+        }
+        
+        .wrap-layout .logo-layout .logo-box .title.light {
+            color: #2d8cf0!important
+        }
+        
+        .wrap-layout .logo-layout .logo-box .title-current {
+            color: hsla(0, 0%, 100%, .9);
+            font-size: 16px
+        }
+        
+        .wrap-layout .logo-layout .logo-box .title-current-short {
+            color: hsla(0, 0%, 100%, .9)
+        }
+        
+        .wrap-layout .logo-layout .logo-box .title-current-short.light,
+        .wrap-layout .logo-layout .logo-box .title-current.light {
+            color: #444!important
+        }
+        
+        .wrap-layout .logo-layout .logo-box .right-tags {
+            margin-top: -2px
+        }
+        
+        .wrap-layout .left-layout {
+            border-right: 1px solid #dadfe6;
+            overflow-x: hidden!important;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+            background: #fff!important;
+            color: #444!important;
+            width: 150px!important;
+            min-width: 150px!important;
+            max-width: 150px!important;
+            -webkit-box-flex: 0!important;
+            -ms-flex: 0 0 150px!important;
+            flex: 0 0 150px!important
+        }
+        
+        .wrap-layout .left-layout .ivu-menu-light {
+            text-align: left
+        }
+        
+        .wrap-layout .left-layout .left-menu-collapse a {
+            color: #fff!important
+        }
+        
+        .wrap-layout .left-layout .ivu-select-dropdown {
+            left: 65px!important
+        }
+        
+        .wrap-layout .left-layout .menu-list {
+            margin-top: 5px
+        }
+        
+        .wrap-layout .left-layout .left-menu {
+            color: #444;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border-top: 0 solid #333
+        }
+        
+        .wrap-layout .left-layout .left-menu:after {
+            height: 0!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical {
+            text-align: left;
+            background: transparent
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu-title-icon {
+            right: 4px
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical>.ivu-menu-item {
+            color: #444;
+            padding: 8px 10px
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group>.ivu-menu-item-group-title {
+            height: 38px;
+            line-height: 38px;
+            padding-left: 10px
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group>ul .ivu-menu-item {
+            padding: 7px 0 7px 24px
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group .ivu-menu-submenu .ivu-menu-submenu-title {
+            background: none;
+            padding-left: 22px!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group .ivu-menu-submenu .ivu-menu {
+            background: hsla(0, 0%, 100%, .9)
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group .ivu-menu-submenu .ivu-menu .ivu-menu-item {
+            padding-left: 38px!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group .ivu-menu-submenu .ivu-menu .ivu-menu-item-active {
+            background: none!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group .ivu-menu-submenu .ivu-menu .ivu-menu-item-active:hover {
+            background: none
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-item-group .ivu-menu-submenu.ivu-menu-opened {
+            background: transparent!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .left-icon {
+            -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
+            opacity: .8
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item {
+            color: #444;
+            padding: 6px
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu-title {
+            color: #444;
+            background: transparent!important;
+            padding: 7px 10px
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu-title:hover {
+            background: none
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu .ivu-menu-item {
+            padding-left: 30px!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu .ivu-menu-item.ivu-menu-item-active {
+            padding-left: 30px!important;
+            background: none!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu .ivu-menu-item.ivu-menu-item-active:hover {
+            background: none
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu.ivu-menu-opened {
+            background: transparent
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu.ivu-menu-opened .ivu-menu-submenu-title {
+            background: none
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu.ivu-menu-opened .ivu-menu {
+            background: hsla(0, 0%, 100%, .9)
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu .ivu-menu-submenu-title {
+            background: none;
+            padding-left: 22px!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu .ivu-menu {
+            background: hsla(0, 0%, 100%, .9)
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu .ivu-menu .ivu-menu-item {
+            padding-left: 38px!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu .ivu-menu .ivu-menu-item-active {
+            background: none!important
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu .ivu-menu .ivu-menu-item-active:hover {
+            background: none
+        }
+        
+        .wrap-layout .left-layout .left-menu.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-submenu.ivu-menu-opened {
+            background: transparent!important
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper {
+            height: 40px;
+            position: relative;
+            white-space: nowrap;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #eee
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .btn-con {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            background: #fff;
+            padding-top: 3px;
+            z-index: 10
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .btn-con button {
+            padding: 6px 4px;
+            line-height: 14px;
+            text-align: center
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .btn-con.left-btn {
+            left: 0;
+            width: 28px
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .btn-con.right-btn {
+            right: 32px;
+            padding-left: 3px;
+            border-right: 1px solid #f0f0f0
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .close-con {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 32px;
+            background: #fff;
+            text-align: center;
+            z-index: 10
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .tags-view-wrapper {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 9
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .tags-view-wrapper .tags-view-item {
+            border-radius: 4px;
+            display: inline-block;
+            margin: 3px 4px 2px 0;
+            font-size: 12px;
+            vertical-align: middle;
+            opacity: 1;
+            overflow: hidden;
+            cursor: pointer;
+            line-height: 30px;
+            border: 1px solid #e8eaec;
+            color: #515a6e;
+            background: #fff;
+            padding: 0 10px
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .tags-view-wrapper .tags-view-item .title {
+            display: inline-block;
+            font-size: 13px
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .tags-view-wrapper .tags-view-item .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #e8eaec;
+            border-radius: 50%;
+            margin: 0 6px 0 4px
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .tags-view-wrapper .tags-view-item.active .dot {
+            background-color: #2d8cf0
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .tag-nav-wrapper .tags-view-wrapper .tags-view-item .close-tag {
+            font-size: 22px;
+            margin-top: -5px
+        }
+        
+        .wrap-layout .right-layout .main-layout-con .content-wrapper {
+            height: calc(100% - 80px);
+            overflow: auto;
+            padding: 12px
+        }
+        
+        .wrap-layout .content-breadcrumb {
+            margin-top: -8px;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between
+        }
+        
+        .wrap-layout .content-breadcrumb .ivu-breadcrumb>span:last-child {
+            font-weight: 400
+        }
+        
+        .wrap-layout .content-breadcrumb .ivu-breadcrumb-item-link {
+            color: #515a6e
+        }
+        
+        .wrap-layout .ivu-tabs-mini .ivu-tabs-tab {
+            font-size: 14px
+        }
+        
+        @media screen and (min-width: 768px) and (max-width:1200px) {
+            .wrap-layout .left-tab {
+                z-index: 998
+            }
+            .wrap-layout .left-layout {
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 70px;
+                z-index: 999
+            }
+            .wrap-layout .base-mask-left-layout {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 60px;
+                right: 0;
+                z-index: 998
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .wrap-layout .layout-header-bar .left {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex
+            }
+            .wrap-layout .logo-layout .divider,
+            .wrap-layout .logo-layout .kuohao,
+            .wrap-layout .logo-layout .logo,
+            .wrap-layout .logo-layout .right-tags,
+            .wrap-layout .logo-layout .title,
+            .wrap-layout .logo-layout .title-current {
+                display: none
+            }
+            .wrap-layout .left-tab {
+                display: block;
+                position: absolute;
+                top: -60px;
+                bottom: 0;
+                left: -230px;
+                z-index: 999;
+                width: 70px
+            }
+            .wrap-layout .left-tab .ivu-layout-sider-children {
+                background: #eee
+            }
+            .wrap-layout .left-layout {
+                display: block;
+                position: absolute;
+                top: -60px;
+                bottom: 0;
+                left: -150px;
+                z-index: 999
+            }
+            .wrap-layout .right-layout .main-layout-con .content-wrapper {
+                padding: 0
+            }
+            .wrap-layout .base-mask {
+                background-color: rgba(0, 0, 0, .4);
+                position: absolute;
+                top: -60px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 998
+            }
+            .wrap-layout .left-tab-layout-display.left-tab {
+                left: 0
+            }
+            .wrap-layout .left-tab-layout-display.left-layout {
+                left: 70px
+            }
+            .wrap-layout .content-breadcrumb .ivu-breadcrumb-item-separator {
+                margin: 0 7px
+            }
+        }
+        
+        body,
+        html {
+            overflow: hidden
+        }
+        
+        #app,
+        body,
+        html {
+            width: 100%;
+            height: 100%
+        }
+        
+        #app {
+            font-family: Avenir, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #2c3e50;
+        }
+    </style>
+    {block name="style"}{/block}
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrap-layout">
+            <div class="layout-header-bar ivu-layout-header">
+                <div class="left">
+                    <div class="p-l-sm ivu-row">
+                        <div class="ivu-col ivu-col-span-xs-24 ivu-col-span-sm-24 ivu-col-span-md-0"><i class="menu-icon ivu-icon ivu-icon-md-menu light" style="font-size: 24px; margin: 0px; cursor: pointer;"></i></div>
+                    </div>
+                </div>
+                <div class="logo-layout p-l-sm">
+                    <div class="ivu-dropdown">
+                        <div class="ivu-dropdown-rel">
+                            <div class="logo-box">
+                                <div class="title light"> XYS </div>
+                                <div class="title-current-short light"><span style="display: none;"><span class="kuohao">(</span> <span class="kuohao">)</span></span>
+                                </div>
+                                <div class="divider ivu-divider ivu-divider-vertical ivu-divider-default">
+                                    <!---->
+                                </div>
+                                <div class="title-current light"><span> 管理后台 </span></div>
+                                <div class="right-tags m-l-sm">
+                                    <div class="ivu-tag ivu-tag-size-default ivu-tag-error ivu-tag-checked">
+                                        <!----><span class="ivu-tag-text ivu-tag-color-white"><span>内测版</span></span>
+                                        <!---->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---->
+                    </div>
+                </div>
+                <div class="right flex">
+                    <div class="user-login m-r-sm ivu-row-flex">
+                        <div class="ivu-col ivu-col-span-xs-0 ivu-col-span-sm-0 ivu-col-span-md-24"><span class="text-default light">欢迎登录，</span><span class="text-default light">jry</span></div>
+                    </div>
+                    <div class="ivu-dropdown">
+                        <div class="ivu-dropdown-rel"><a href="javascript:void(0)" style="font-size: 14px;"><span class="ivu-badge"><span class="ivu-avatar ivu-avatar-circle ivu-avatar-image"><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=400062461,2874561526&amp;fm=26&amp;gp=0.jpg"></span> <!----></span><i class="ivu-icon ivu-icon-md-arrow-dropdown" style="font-size: 18px;"></i></a></div>
+                        <div class="ivu-select-dropdown height-500" style="transform-origin: center top; display: none;">
+                            <ul class="ivu-dropdown-menu">
+                                <li class="ivu-dropdown-item" style="margin-top: -16px;"> 全屏模式
+                                    <div class="full-screen-btn-con" style="display: inline-block; height: 30px;">
+                                        <div class="ivu-tooltip">
+                                            <div class="ivu-tooltip-rel"><i class="ivu-icon ivu-icon-md-expand" style="font-size: 18px;"></i></div>
+                                            <div class="ivu-tooltip-popper ivu-tooltip-dark" style="display: none;">
+                                                <div class="ivu-tooltip-content">
+                                                    <div class="ivu-tooltip-arrow"></div>
+                                                    <div class="ivu-tooltip-inner">全屏</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="ivu-dropdown">
+                                    <div class="ivu-dropdown-rel">
+                                        <li class="ivu-dropdown-item"> 快捷链接 <i class="ivu-icon ivu-icon-ios-arrow-forward"></i></li>
+                                    </div>
+                                    <!---->
+                                </div>
+                                <li class="ivu-dropdown-item">清除缓存</li>
+                                <li class="ivu-dropdown-item">我的消息</li>
+                                <li class="ivu-dropdown-item">修改密码</li>
+                                <li class="ivu-dropdown-item ivu-dropdown-item-divided">注销</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-layout ivu-layout ivu-layout-has-sider">
+                <div class="ivu-layout-sider ivu-layout-sider-collapsed left-tab" style="width: 70px; min-width: 70px; max-width: 70px; flex: 0 0 70px; overflow: auto; text-align: center; background: rgb(247, 248, 250);"><span class="ivu-layout-sider-zero-width-trigger" style="display: none;"><i class="ivu-icon ivu-icon-ios-menu"></i></span>
+                    <div class="ivu-layout-sider-children">
+                        <div class="tab-logo"></div>
+                        <div class="tab-list" style="flex: 1 1 0%;">
+                            <div class="left-menu-collapse">
+                                <div class="tab-item"><a href="#/home" class=""><i class="left-icon ivu-icon ivu-icon-md-speedometer" style="vertical-align: -0.1em;"></i><div class="title"> 概览</div></a></div>
+                                <div class="tab-item" v-for="(m, index) in menuData" :class="{active:showindex==index}" @click="show(m,index)">
+                                    <i :class="m.icon" style="vertical-align: -0.1em;"></i><span class="title" style="margin-left: 2px;">{{m.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ivu-layout-sider-trigger ivu-layout-sider-trigger-collapsed" style="width: 70px; display: none;"><i class="ivu-icon ivu-icon-ios-arrow-back ivu-layout-sider-trigger-icon"></i></div>
+                </div>
+                <div class="ivu-layout-sider left-layout" style="width: 200px; min-width: 200px; max-width: 200px; flex: 0 0 200px; overflow: auto; text-align: center;"><span class="ivu-layout-sider-zero-width-trigger" style="display: none;"><i class="ivu-icon ivu-icon-ios-menu"></i></span>
+                    <div class="ivu-layout-sider-children">
+                        <div class="menu-list">
+                            <i-menu class="left-menu" width="auto" active-name="1" v-for="(item, index) in subMenuData" :key="index">
+                                <Menu-Item :name="item.key" v-if="item.type === 'item'" @click.native="load(item.url)">
+                                    <Icon :type="item.icon" v-if="item.icon"></Icon>
+                                    {{item.name}}
+                                </Menu-Item>
+                                <Menu-Group :title="item.name" v-else-if="item.type === 'group'">
+                                    <Menu-Item :name="ic.key" v-for="(ic, index) in item.child" :key="index"  @click.native="load(ic.url)">
+                                        <Icon :type="ic.icon" v-if="ic.icon"></Icon> {{ic.name}}</Menu-Item>
+                                </Menu-Group>
+                                <Submenu :name="item.key" v-else-if="item.type === 'submenu'">
+                                    <template slot="title">
+                        <Icon :type="item.icon" v-if="item.icon"></Icon>
+                        {{item.name}}
+                    </template>
+                                    <Menu-Item :name="is.key" v-for="(is, index) in item.child" :key="index"  @click.native="load(is.url)">{{is.name}}</Menu-Item>
+                                </Submenu>
+                            </i-menu>
+                        </div>
+                    </div>
+                    <div class="ivu-layout-sider-trigger" style="width: 200px; display: none;"><i class="ivu-icon ivu-icon-ios-arrow-back ivu-layout-sider-trigger-icon"></i></div>
+                </div>
+                <div class="right-layout ivu-layout">
+                    <div class="main-content-con ivu-layout-content" style="overflow: hidden; height: calc(100% - 60px);">
+                        <div class="main-layout-con ivu-layout" style="overflow: hidden; height: 100%;">
+                            <div class="content-wrapper ivu-layout-content">
+                                <div class="ivu-card ivu-card-dis-hover ivu-card-shadow">
+                                    <div class="ivu-card-body">
+                                        <Spin fix v-if="loading"></Spin>
+                                        <div v-html="html"></div>
+                                    </div>
+                                </div>
+                                <div class="ivu-back-top" style="bottom: 30px; right: 30px;">
+                                    <div class="ivu-back-top-inner"><i class="ivu-icon ivu-icon-ios-arrow-up"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.staticfile.org/vue/2.6.11/vue.min.js"></script>
+<script src="https://unpkg.com/view-design/dist/iview.min.js"></script>
+<script src="https:////lib.baomitu.com/axios/0.19.2/axios.min.js"></script>
+{block name="vue"}
+<script>
+    const menu = <!--{$menu}-->
+        new Vue({
+            el: '#app',
+            data: {
+                loading: false,
+                showindex: 0,
+                menuData: menu,
+                subMenuData: [],
+                html: '',
+            },
+            methods: {
+                load: function(url) {
+                    if (url && url.length > 0) {
+                        this.html = ''
+                        this.loading = true
+                        let param = {
+                            accept: 'text/html, text/plain'
+                        }
+                        axios.get(url, param).then((response) => {
+                            this.loading = false
+                            this.html = response.data
+                        }).catch((error) => {
+                            const status = error.response.status
+                            const message = error.response.statusText
+                            this.loading = false
+                            this.$Notice.error({title: '加载失败', desc: status + message})
+                        })
+                    }
+                },
+                show: function(m, index) {
+                    this.showindex = index
+                    this.subMenuData = m.children
+                }
+            }
+        })
+</script>
+{/block} {block name="script"}{/block}
+
+</html>
